@@ -1,0 +1,353 @@
+/* ==========================================================================
+   FEISHIN MEDIA SYNC PRO — DEMO UI: SPLASH, GLASS MODAL & ANDROID BANNER
+   ========================================================================== */
+
+/* Top Android Allusion Banner */
+#demo-android-notice-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99990;
+    background: rgba(14, 11, 24, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.35);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    user-select: none;
+}
+
+.notice-info-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.notice-icon-badge {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 15px;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
+}
+
+.notice-text-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.notice-headline {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: -0.2px;
+    color: #ffffff;
+}
+
+.notice-subline {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.notice-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-download-apk-header {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 7px 16px;
+    border-radius: 999px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(59, 130, 246, 0.4);
+    transition: all 0.25s ease;
+}
+
+.btn-download-apk-header:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(59, 130, 246, 0.6);
+}
+
+/* Compensate layout for top notice */
+body.has-demo-notice .app-layout {
+    padding-top: 54px !important;
+}
+
+/* Floating Toast */
+#demo-floating-toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(50px);
+    background: rgba(18, 14, 32, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 22px;
+    border-radius: 999px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 9999999;
+}
+
+#demo-floating-toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Cinematic Splash Screen */
+#sync-demo-splash {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    background: radial-gradient(circle at 50% 35%, #181135 0%, #0a0614 50%, #040208 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    user-select: none;
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1), filter 0.75s ease;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+#sync-demo-splash.splash-exit {
+    opacity: 0;
+    transform: scale(1.05);
+    filter: blur(12px);
+    pointer-events: none;
+}
+
+.sync-splash-ring {
+    width: 80px;
+    height: 80px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #2563eb, #9333ea);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 35px rgba(37, 99, 235, 0.5);
+    margin-bottom: 22px;
+    position: relative;
+}
+
+.sync-splash-ring i {
+    font-size: 38px;
+    color: #ffffff;
+}
+
+.sync-splash-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin: 0 0 6px 0;
+    background: linear-gradient(135deg, #ffffff, #60a5fa, #c084fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: uppercase;
+}
+
+.sync-splash-subtitle {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0 0 28px 0;
+    text-transform: uppercase;
+}
+
+.sync-splash-bar-track {
+    width: 240px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 14px;
+}
+
+.sync-splash-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #2563eb, #a855f7, #38bdf8);
+    border-radius: 999px;
+    transition: width 0.3s ease-out;
+    box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+}
+
+.sync-splash-status {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    min-height: 20px;
+}
+
+/* Glassmorphism Modal ("Popup de Vidro") */
+#sync-demo-apk-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 2, 10, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 16px;
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+
+#sync-demo-apk-modal.modal-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.sync-glass-card {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    background: rgba(20, 16, 38, 0.84);
+    backdrop-filter: blur(32px) saturate(180%);
+    -webkit-backdrop-filter: blur(32px) saturate(180%);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+    border-radius: 28px;
+    padding: 32px 28px;
+    box-shadow: 0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(37, 99, 235, 0.25);
+    color: #ffffff;
+    text-align: center;
+    transform: scale(0.92) translateY(12px);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+#sync-demo-apk-modal.modal-open .sync-glass-card {
+    transform: scale(1) translateY(0);
+}
+
+.sync-icon-box {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 20px auto;
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(37, 99, 235, 0.5) 0%, rgba(147, 51, 234, 0.4) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+.sync-icon-box i {
+    font-size: 32px;
+    color: #60a5fa;
+}
+
+.sync-modal-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 10px 0;
+    color: #ffffff;
+    letter-spacing: -0.2px;
+}
+
+.sync-modal-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0 0 22px 0;
+}
+
+.sync-chips-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.sync-chip {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.sync-actions-col {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-sync-download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+    transition: all 0.25s ease;
+}
+
+.btn-sync-download:hover {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(37, 99, 235, 0.55);
+}
+
+.btn-sync-dismiss {
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    font-size: 13px;
+    padding: 12px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-sync-dismiss:hover {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+}

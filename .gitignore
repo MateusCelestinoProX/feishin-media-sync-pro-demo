@@ -1,0 +1,14 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+.env
+.env.local
+.cache/
+sync-cache/
+tmp/
+graphify-out/cache/
+local.properties
+.gradle/
+build/
+**/build/

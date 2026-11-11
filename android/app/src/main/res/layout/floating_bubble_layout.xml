@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bubble_root"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- Container do Ícone Flutuante -->
+    <LinearLayout
+        android:id="@+id/bubble_container"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_floating_bubble"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+
+        <ImageView
+            android:id="@+id/bubble_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_media_wave" />
+
+        <View
+            android:id="@+id/bubble_pulse_dot"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_pulse_dot" />
+    </LinearLayout>
+
+    <!-- Botão de Fechar Mini -->
+    <ImageView
+        android:id="@+id/bubble_close_btn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="top|end"
+        android:background="@drawable/bg_close_btn"
+        android:contentDescription="Fechar Flutuante"
+        android:padding="3dp"
+        android:src="@drawable/ic_close"
+        android:visibility="gone" />
+
+</FrameLayout>

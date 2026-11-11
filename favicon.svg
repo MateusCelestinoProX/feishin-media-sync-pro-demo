@@ -1,0 +1,26 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGrad" x1="512" y1="0" x2="512" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E7EC" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="12" stdDeviation="20" flood-color="#000000" flood-opacity="0.14" />
+    </filter>
+    <filter id="emblemShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.15" />
+    </filter>
+  </defs>
+  <rect x="36" y="36" width="952" height="952" rx="216" fill="url(#bgGrad)" stroke="#E2E7ED" stroke-width="4" filter="url(#shadow)" />
+  <g id="sync-cycle" filter="url(#emblemShadow)">
+    <path d="M 207.48 370.00 A 336 336 0 0 1 816.52 370.00" fill="none" stroke="#2563EB" stroke-width="40" stroke-linecap="round" />
+    <path d="M 843.57 428.00 L 850.96 353.94 L 782.08 386.06 Z" fill="#2563EB" stroke="#2563EB" stroke-width="4" stroke-linejoin="round" />
+    <path d="M 816.52 654.00 A 336 336 0 0 1 207.48 654.00" fill="none" stroke="#2563EB" stroke-width="40" stroke-linecap="round" />
+    <path d="M 180.43 596.00 L 173.04 670.06 L 241.92 637.94 Z" fill="#2563EB" stroke="#2563EB" stroke-width="4" stroke-linejoin="round" />
+  </g>
+  <g id="feishin-emblem" transform="translate(512, 512) scale(0.63) translate(-512, -512)" filter="url(#emblemShadow)">
+    <circle cx="512" cy="480.62" r="43" fill="#0F1115" />
+    <path d="M 441.7 555.9 L 367 631.2 L 439 703.4 L 479 664 C 479 664 490.7 651.6 512 651.6 C 533.3 651.6 545 664 545 664 L 585 703.4 L 657 631.2 L 582.3 555.9 A 103 103 0 0 1 512 583.6 A 103 103 0 0 1 441.7 555.9 Z" fill="#0F1115" />
+    <path d="M 512 290.8 C 497.8 290.8 484.9 296.6 475.5 305.9 L 133.9 646.9 C 124.7 656.2 119 668.9 119 683 C 119 711.2 141.8 734 170 734 C 184.1 734 196.8 728.3 206.1 719 L 413.9 511.9 A 103 103 0 0 1 409 480.6 A 103 103 0 0 1 512 377.6 A 103 103 0 0 1 615 480.6 A 103 103 0 0 1 610.1 511.9 L 817.9 719.1 C 827.2 728.3 839.9 734 854 734 C 882.2 734 905 711.2 905 683 C 905 668.9 899.3 656.2 890.1 646.9 L 548.5 305.9 C 539.1 296.6 526.2 290.8 512 290.8 Z" fill="#0F1115" />
+  </g>
+</svg>

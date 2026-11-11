@@ -1,0 +1,30 @@
+{
+  "name": "feishin-media-sync-pro",
+  "version": "1.0.0",
+  "description": "High-performance media synchronization & playlist management engine for Feishin, Subsonic, Navidrome and Jellyfin ecosystems.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "feishin-sync": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "dev": "ts-node-dev --respawn src/index.ts",
+    "lint": "eslint . --ext .ts"
+  },
+  "keywords": [
+    "feishin",
+    "subsonic",
+    "navidrome",
+    "jellyfin",
+    "media-sync",
+    "audio-cache",
+    "playlist-sync"
+  ],
+  "author": "Mateus Celestino <202405039459@alunos.estacio.br>",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

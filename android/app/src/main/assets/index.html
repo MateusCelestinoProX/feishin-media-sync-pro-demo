@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Feishin Media Sync</title>
+  <meta name="description" content="Sincronizador Automático de Músicas: Celular ➔ VPS Navidrome ➔ Google Drive">
+  <meta name="theme-color" content="#070709">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Feishin Sync">
+
+  <!-- Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Typography & FontAwesome Icons (Non-blocking offline-safe) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+  
+  <link rel="stylesheet" href="style.css?v=8.4">
+  <link rel="stylesheet" href="./demo-sync-ui.css">
+  <script src="./demo-android-bridge.js"></script>
+  <script src="./demo-sync-ui.js" defer></script>
+
+
+  <script>
+    // Gerenciador Global de Suspensão Visual e Economia de Hardware
+    window.suspendVisuals = function(suspend) {
+      window.__PAUSE_WEBGL_SHADERS__ = suspend;
+      if (typeof window._visualSuspendHandler === 'function') {
+        window._visualSuspendHandler(suspend);
+      }
+    };
+    document.addEventListener('visibilitychange', function() {
+      window.suspendVisuals(document.hidden);
+    });
+    window.addEventListener('pageshow', function() {
+      if (!document.hidden) window.suspendVisuals(false);
+    });
+    window.addEventListener('pagehide', function() {
+      window.suspendVisuals(true);
+    });
+  </script>
+</head>
+<body class="android-apk">
+
+  <!-- Background Cinemático & Motor de Shaders WebGL OGL -->
+  <div id="bg-slideshow" class="bg-slideshow">
+    <div id="bg-layer-active" class="bg-layer active"></div>
+    <div id="bg-layer-next" class="bg-layer"></div>
+    <div id="bg-webgl-container"></div>
+    <div class="bg-overlay"></div>
+  </div>
+
+  <main class="app-layout" id="app-main">
+
+    <!-- Topology: 3 Fontes Conectadas -->
+    <section class="section-card topology-section">
+      <div class="topology-header-row">
+        <div class="topology-title-group">
+          <span class="topology-title"><i class="fa-solid fa-network-wired"></i> TOPOLOGIA</span>
+          <div class="status-pill compact" id="topology-global-status">
+            <span class="status-dot online"></span> Sincronizado
+          </div>
+        </div>
+
+        <div class="header-widget-group">
+          <!-- Widget Inteligente de Shaders / Backgrounds Remanejado -->
+          <button id="btn-open-shaders" class="widget-bg-chip btn-open-shaders" title="Configurar Fundo & Shaders WebGL" aria-label="Seletor de Backgrounds">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <span id="widget-shader-label" class="widget-bg-label">Soft Aurora</span>
+          </button>
+          <button id="btn-refresh-status" class="icon-btn-chip" title="Atualizar Status">
+            <i class="fa-solid fa-rotate-right"></i>
+          </button>
+        </div>
+      </div>
+      <div class="topology-grid">
+        <!-- Celular -->
+        <div class="node-card" id="node-local">
+          <div class="node-icon local">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+          </div>
+          <div class="node-details">
+            <span class="node-name">Celular Local</span>
+            <span class="node-val" id="local-tracks-count">... faixas</span>
+            <span class="node-desc">Music + SnapTube</span>
+          </div>
+        </div>
+
+        <div class="node-divider"><i class="fa-solid fa-chevron-right"></i></div>
+
+        <!-- VPS Navidrome -->
+        <div class="node-card" id="node-vps">
+          <div class="node-icon vps">
+            <i class="fa-solid fa-server"></i>
+          </div>
+          <div class="node-details">
+            <span class="node-name">VPS Navidrome</span>
+            <span class="node-val" id="vps-tracks-count">... faixas</span>
+            <span class="node-desc" id="vps-host-label">Navidrome Cloud (4533)</span>
+          </div>
+        </div>
+
+        <div class="node-divider"><i class="fa-solid fa-chevron-right"></i></div>
+
+        <!-- Google Drive -->
+        <div class="node-card" id="node-gdrive">
+          <div class="node-icon gdrive">
+            <i class="fa-brands fa-google-drive"></i>
+          </div>
+          <div class="node-details">
+            <span class="node-name">Google Drive</span>
+            <span class="node-val" id="gdrive-status-label">Bisync 100%</span>
+            <span class="node-desc">Backup Nuvem</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Hero Sync Card -->
+    <section class="hero-sync-card" id="hero-card">
+      <div class="sync-status-center">
+        <div class="sync-pulse-avatar" id="sync-radar">
+          <i class="fa-solid fa-cloud-arrow-up" id="sync-icon-hero"></i>
+        </div>
+        <h2 id="sync-main-status">Pronto para Varredura</h2>
+        <p id="sync-sub-status">Modo Sob Demanda ativo (zero segundo plano). Toque em FAZER VARREDURA para buscar e enviar faixas novas de /sdcard/Music e SnapTube Audio.</p>
+        
+        <div class="guard-pill">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Filtro Ativo: Apenas Músicas • Zero Duplicações</span>
+        </div>
+      </div>
+
+      <!-- Realtime Progress Bar -->
+      <div class="progress-box" id="sync-progress-box" style="display: none;">
+        <div class="progress-labels">
+          <span id="sync-track-name" class="track-title-trim">Faixa: ...</span>
+          <span id="sync-percent-label" class="percent-val">0%</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar-fill" id="sync-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-sub-info">
+          <span id="sync-bytes-detail">0 MB / 0 MB</span>
+          <span id="sync-count-detail">1 de 1</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons-row">
+        <button id="btn-sync-now" class="btn-primary-sync">
+          <i class="fa-solid fa-arrows-rotate" id="btn-sync-icon"></i>
+          <span id="btn-sync-label">FAZER VARREDURA</span>
+        </button>
+        <button id="btn-cancel-sync" class="btn-cancel" style="display: none;">
+          <i class="fa-solid fa-xmark"></i> Cancelar
+        </button>
+      </div>
+    </section>
+
+    <!-- Pastas Monitoradas -->
+    <section class="section-card">
+      <div class="section-title">
+        <span><i class="fa-solid fa-folder-tree"></i> PASTAS DE VARREDURA</span>
+      </div>
+      <div class="folders-list">
+        <div class="folder-row">
+          <div class="folder-icon-circle">
+            <i class="fa-solid fa-music"></i>
+          </div>
+          <div class="folder-content">
+            <div class="folder-header">
+              <span class="folder-path">/sdcard/Music</span>
+              <span class="badge-tag">Filtrado</span>
+            </div>
+            <span class="folder-stats" id="count-music-folder">... faixas</span>
+          </div>
+        </div>
+
+        <div class="folder-row">
+          <div class="folder-icon-circle snaptube">
+            <i class="fa-solid fa-download"></i>
+          </div>
+          <div class="folder-content">
+            <div class="folder-header">
+              <span class="folder-path">SnapTube Audio</span>
+              <span class="badge-tag">Sob Demanda</span>
+            </div>
+            <span class="folder-stats" id="count-snaptube-folder">... faixas</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Histórico de Envios Recentes -->
+    <section class="section-card">
+      <div class="section-header-split">
+        <div class="section-title">
+          <span><i class="fa-solid fa-clock-rotate-left"></i> HISTÓRICO DE ENVIOS</span>
+          <span class="badge-counter" id="badge-history-count">0 MÍDIAS</span>
+        </div>
+        <button id="btn-trigger-gdrive" class="btn-secondary-action">
+          <i class="fa-brands fa-google-drive"></i> Sincronizar Drive
+        </button>
+      </div>
+
+      <div class="history-container" id="sync-history-list">
+        <div class="empty-state">
+          <i class="fa-solid fa-circle-check"></i>
+          <p>Nenhuma sincronização recente registrada.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Configurações Operacionais -->
+    <section class="section-card">
+      <div class="section-title">
+        <span><i class="fa-solid fa-sliders"></i> CONFIGURAÇÕES OPERACIONAIS</span>
+      </div>
+
+      <div class="settings-list">
+        <div class="setting-row">
+          <div class="setting-desc">
+            <span class="setting-label">Execução em Segundo Plano</span>
+            <span class="setting-hint" style="color: var(--accent-green);">Desativada permanentemente (0% bateria em repouso)</span>
+          </div>
+          <span class="badge-tag">Sob Demanda</span>
+        </div>
+
+        <div class="setting-row">
+          <div class="setting-desc">
+            <span class="setting-label">Plano de Fundo & Shaders WebGL</span>
+            <span class="setting-hint" id="settings-shader-hint">37 Shaders OGL Liquid Glass • Ativo: Soft Aurora</span>
+          </div>
+          <button id="btn-open-shaders-setting" class="btn-micro btn-open-shaders" title="Configurar Fundo">Personalizar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Modal Shaders WebGL Liquid Glass -->
+    <div class="shader-modal-backdrop" id="shader-modal-backdrop" style="display: none;"></div>
+    <div class="shader-modal-panel" id="shader-modal-panel" style="display: none;">
+      <div class="shader-modal-header">
+        <div class="shader-modal-title">
+          <i class="fa-solid fa-wand-magic-sparkles"></i>
+          <h3>Fundo Dinâmico & Shaders</h3>
+        </div>
+        <button id="btn-close-shader-modal" class="icon-btn close-modal-btn" aria-label="Fechar">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <p class="shader-modal-subtitle">37 Shaders WebGL OGL acelerados por GPU com Liquid Glass</p>
+
+      <div class="shader-modal-body">
+        <div class="shader-select-group">
+          <label for="shader-select" class="shader-label">Escolher Shader Ativo:</label>
+          <select id="shader-select" class="shader-dropdown">
+            <option value="galaxybits">✨ Todos os 37 Shaders (Rotativo)</option>
+            <optgroup label="🌌 Atmosféricos & Ondas">
+              <option value="softaurora">🌌 Soft Aurora (Padrão)</option>
+              <option value="aurora">🌈 Aurora Borealis</option>
+              <option value="plasmawave">🌊 Plasma Wave</option>
+              <option value="linewaves">〰️ Line Waves</option>
+              <option value="floatinglines">〰️ Floating Lines</option>
+              <option value="silk">🧣 Silk Cloth</option>
+            </optgroup>
+            <optgroup label="⚛️ Partículas & Fibras 3D">
+              <option value="particles">🟣 Particles OGL 3D</option>
+              <option value="ghostfibers">🌌 Ghost Fibers</option>
+              <option value="strands">✨ Strands Ethereal</option>
+              <option value="siderays">⚡ Side Rays</option>
+              <option value="beams">💡 Beams 3D</option>
+              <option value="webthreads">🕸️ Web Threads</option>
+              <option value="lightning">⚡ Lightning Arc</option>
+            </optgroup>
+            <optgroup label="🪞 Fluidos & Metais">
+              <option value="liquidchrome">🪞 Liquid Chrome</option>
+              <option value="liquidether">💧 Liquid Ether</option>
+              <option value="ferrofluid">🧲 Ferrofluid</option>
+              <option value="moltenmetal">🌋 Molten Metal</option>
+              <option value="plasma">🔮 Sine Plasma</option>
+            </optgroup>
+            <optgroup label="💎 Óptica & Refração">
+              <option value="prism">💎 Prism Refraction</option>
+              <option value="prismaticburst">💥 Prismatic Burst</option>
+              <option value="orb">🔮 Energy Orb</option>
+              <option value="evileye">👁️ Evil Eye</option>
+              <option value="magicrings">💍 Magic Rings</option>
+              <option value="antigravity">🛸 Antigravity</option>
+            </optgroup>
+            <optgroup label="📐 Geometria & Scan">
+              <option value="radar">🎯 Tactical Radar</option>
+              <option value="gridscan">📐 Grid Scan</option>
+              <option value="ripplegrid">🌐 Ripple Grid</option>
+              <option value="pixelblast">🔲 Pixel Blast</option>
+              <option value="topography">🗺️ Topography</option>
+              <option value="dither">👾 Dither Wave</option>
+              <option value="darkveil">🌑 Dark Veil</option>
+            </optgroup>
+            <optgroup label="🎮 Retro & Visual Effects">
+              <option value="balatro">🃏 Balatro Vortex</option>
+              <option value="faultyterminal">📺 Faulty Terminal</option>
+              <option value="morphslider">🔀 Morph Slider</option>
+              <option value="letterglitch">🔤 Letter Glitch</option>
+              <option value="lighttunnel">🚀 Light Tunnel</option>
+              <option value="ancidsquares">🟩 Acid Squares</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div class="shader-actions-row">
+          <button id="btn-random-shader" class="btn-secondary-action">
+            <i class="fa-solid fa-shuffle"></i> Sortear Shader
+          </button>
+          <button id="btn-run-all-tests" class="btn-secondary-action">
+            <i class="fa-solid fa-vial-circle-check"></i> Testar 37 Shaders
+          </button>
+        </div>
+
+        <div class="shader-active-info" id="shader-status-tag">
+          <span class="status-dot online"></span>
+          <span>Ativo: <strong id="current-shader-name">Soft Aurora</strong></span>
+        </div>
+
+        <div id="shader-test-progress" class="shader-test-box" style="display: none;">
+          <div class="shader-test-header">
+            <span id="shader-test-status-text">Testando Shaders...</span>
+            <span id="shader-test-percent">0/37</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-bar-fill" id="shader-test-fill" style="width: 0%;"></div>
+          </div>
+          <div id="shader-test-results-log" class="shader-log-area"></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Scripts: Três bibliotecas essenciais para os 37 Shaders WebGL OGL + Engine Principal -->
+  <script src="js/vendor/three.min.js"></script>
+  <script type="module" src="js/webgl-backgrounds.js"></script>
+  <script src="app.js?v=8.5"></script>
+</body>
+</html>

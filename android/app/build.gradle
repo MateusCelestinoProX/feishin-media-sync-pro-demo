@@ -1,0 +1,52 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.feishin.mediasync'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.feishin.mediasync"
+        minSdk 24
+        targetSdk 34
+        versionCode 3
+        versionName "1.0.3"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding false
+    }
+
+    aaptOptions {
+        // Não comprimir arquivos de áudio para permitir leitura direta via streaming/file descriptor
+        noCompress 'mp3', 'wav', 'ogg', 'm4a'
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'androidx.webkit:webkit:1.12.0'
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.media:media:1.7.0'
+}

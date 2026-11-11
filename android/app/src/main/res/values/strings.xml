@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Feishin Media Sync Pro</string>
+    <string name="playback_channel_name">Feishin Media Sync Pro Reprodução</string>
+    <string name="playback_channel_desc">Mantém o streaming e sincronização de mídia em segundo plano com tela bloqueada</string>
+    <string name="overlay_permission_title">Permissão de Janela Flutuante</string>
+    <string name="overlay_permission_msg">Para exibir o ícone flutuante do player sobre outros apps, autorize a permissão nas configurações.</string>
+</resources>
