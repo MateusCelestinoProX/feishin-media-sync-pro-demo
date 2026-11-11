@@ -59493,7 +59493,7 @@
       "node_kind": "heading",
       "norm_label": "\ud83d\udce5 download direto do apk de producao:",
       "source_file": "README.md",
-      "source_location": "L13"
+      "source_location": "L16"
     },
     {
       "id": "readme_estrutura_do_reposit\u00f3rio",
@@ -59505,7 +59505,7 @@
       "node_kind": "heading",
       "norm_label": "\ud83d\udee0\ufe0f estrutura do repositorio",
       "source_file": "README.md",
-      "source_location": "L39"
+      "source_location": "L42"
     },
     {
       "id": "readme_execu\u00e7\u00e3o_do_simulador_web",
@@ -59517,7 +59517,7 @@
       "node_kind": "heading",
       "norm_label": "\ud83d\ude80 execucao do simulador web",
       "source_file": "README.md",
-      "source_location": "L59"
+      "source_location": "L62"
     },
     {
       "id": "readme_feishin_media_sync_pro_aplicativo_android_nativo_portfolio_demo",
@@ -59541,7 +59541,7 @@
       "node_kind": "heading",
       "norm_label": "\u26a0\ufe0f natureza do software: exclusivamente android nativo (.apk)",
       "source_file": "README.md",
-      "source_location": "L7"
+      "source_location": "L10"
     },
     {
       "id": "readme_recursos_nativos_de_engenharia_android",
@@ -59553,7 +59553,7 @@
       "node_kind": "heading",
       "norm_label": "\u26a1 recursos nativos de engenharia android",
       "source_file": "README.md",
-      "source_location": "L21"
+      "source_location": "L24"
     },
     {
       "id": "android_app_pendingintent",
@@ -144463,13 +144463,24 @@
     },
     {
       "source": "readme_feishin_media_sync_pro_aplicativo_android_nativo_portfolio_demo",
+      "target": "readme_natureza_do_software_exclusivamente_android_nativo_apk",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "README.md",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "readme_feishin_media_sync_pro_aplicativo_android_nativo_portfolio_demo",
       "target": "readme_recursos_nativos_de_engenharia_android",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L21",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -144480,7 +144491,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L39",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -144491,18 +144502,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L59",
-      "weight": 1.0
-    },
-    {
-      "source": "readme_feishin_media_sync_pro_aplicativo_android_nativo_portfolio_demo",
-      "target": "readme_natureza_do_software_exclusivamente_android_nativo_apk",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "README.md",
-      "source_location": "L7",
+      "source_location": "L62",
       "weight": 1.0
     },
     {
@@ -144513,7 +144513,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "README.md",
-      "source_location": "L13",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -189457,5 +189457,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "32716c1a551801247ef823840569215e36b2560a"
+  "built_at_commit": "e059502904afe128c4128c2d07bfff1119711490"
 }

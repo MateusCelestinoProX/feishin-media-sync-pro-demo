@@ -1,5 +1,8 @@
 # 📱 Feishin Media Sync Pro — Aplicativo Android Nativo (Portfolio Demo)
 
+[![Deploy](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](https://feishin-media-sync-pro-demo.vercel.app)
+
+> **Simulador Online Live**: https://feishin-media-sync-pro-demo.vercel.app  
 > **Demonstração & Release Oficial** do ecossistema mobile de sincronização e processamento audiófilo de alta performance desenvolvido por **Mateus Celestino Pro**.
 
 ---

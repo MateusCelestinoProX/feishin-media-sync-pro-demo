@@ -1,7 +1,7 @@
 # Graph Report - feishin-media-sync-pro-demo  (2026-11-11)
 
 ## Corpus Check
-- 37 files · ~177,124 words
+- 37 files · ~177,130 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `32716c1a`
+- Built from commit: `e0595029`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
