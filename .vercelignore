@@ -1,0 +1,9 @@
+graphify-out/
+android/
+src/
+build_android_apk.sh
+build_feishin_sync_assets.py
+package.json
+tsconfig.json
+README.md
+.git/

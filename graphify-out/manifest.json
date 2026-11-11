@@ -360,9 +360,9 @@
     "semantic_hash": ""
   },
   "demo-android-bridge.js": {
-    "mtime": 1794361933.7194698,
-    "seen": 1794362166.195536,
-    "ast_hash": "6b3403cb7650c70c88918c0ff7c1da60",
+    "mtime": 1794409298.3784606,
+    "seen": 1794409381.045703,
+    "ast_hash": "8bec405b9fec863a4f0fe91da28feba1",
     "semantic_hash": ""
   },
   "demo-sync-ui.js": {
@@ -447,6 +447,12 @@
     "mtime": 1794361920.5758977,
     "seen": 1794362166.195571,
     "ast_hash": "b6aaad1e8da08169d0eb9aa850ab40d7",
+    "semantic_hash": ""
+  },
+  "vercel.json": {
+    "mtime": 1794409298.3885071,
+    "seen": 1794409381.0457149,
+    "ast_hash": "b4db4a7a19374f4483f294054cc4cb2e",
     "semantic_hash": ""
   }
 }
